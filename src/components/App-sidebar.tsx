@@ -29,10 +29,15 @@ import {
 
 // Menú de navegación principal
 const items = [
-  { title: "Inicio", url: "#", icon: Home },
-  { title: "Citas", url: "#", icon: Calendar },
-  { title: "Pacientes", url: "#", icon: Users },
-  { title: "Configuración", url: "#", icon: Settings },
+  { title: "Dashboard", subtitle: "Resumen general", url: "#", icon: Home },
+  { title: "Agendas", subtitle: "Citas y horarios", url: "#", icon: Calendar },
+  { title: "Odontograma", subtitle: "Registro dental", url: "#", icon: Users },
+  {
+    title: "Historial",
+    subtitle: "Cronologia de visitas",
+    url: "#",
+    icon: Settings,
+  },
 ];
 
 export default function AppSidebar() {
@@ -51,15 +56,22 @@ export default function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Gestión</SidebarGroupLabel>
+          <SidebarGroupLabel>Navegacion</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild tooltip={item.title}>
+                  <SidebarMenuButton
+                    size="lg"
+                    className="p-8"
+                    asChild
+                    tooltip={item.title}>
                     <a href={item.url}>
                       <item.icon />
-                      <span>{item.title}</span>
+                      <div className="flex flex-col">
+                        <span>{item.title}</span>
+                        <span>{item.subtitle}</span>
+                      </div>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
