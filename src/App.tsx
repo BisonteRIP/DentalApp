@@ -1,9 +1,15 @@
 import "./App.css";
+import Header from "./components/Header";
+import { SidebarProvider } from "./components/ui/sidebar";
+import AppSidebar from "./components/App-sidebar";
 
 function App() {
   return (
     <>
-      <p className="text-7xl">hola mundo</p>
+      <SidebarProvider>
+        <AppSidebar />
+        <Header />
+      </SidebarProvider>
     </>
   );
 }
