@@ -1,3 +1,5 @@
+import { useLocation } from "react-router-dom"; // O tu sistema de rutas
+import { cn } from "@/lib/utils";
 import {
   Calendar,
   Users,
@@ -29,22 +31,38 @@ import {
 
 // Menú de navegación principal
 const items = [
-  { title: "Dashboard", subtitle: "Resumen general", url: "#", icon: Home },
-  { title: "Agendas", subtitle: "Citas y horarios", url: "#", icon: Calendar },
-  { title: "Odontograma", subtitle: "Registro dental", url: "#", icon: Users },
+  {
+    title: "Dashboard",
+    subtitle: "Resumen general",
+    url: "/Dashboard",
+    icon: Home,
+  },
+  {
+    title: "Agendas",
+    subtitle: "Citas y horarios",
+    url: "/Agenda",
+    icon: Calendar,
+  },
+  {
+    title: "Odontograma",
+    subtitle: "Registro dental",
+    url: "/Odontograma",
+    icon: Users,
+  },
   {
     title: "Historial",
     subtitle: "Cronologia de visitas",
-    url: "#",
+    url: "/Historial",
     icon: Settings,
   },
 ];
 
 export default function AppSidebar() {
+  const location = useLocation();
   return (
     <Sidebar collapsible="icon" className="bg-card border-r">
       {" "}
-      <SidebarHeader className="p-4 border-border border-b h-18 justify-center">
+      <SidebarHeader className="border-border border-b h-18 group-data-[collapsible=icon]:items-center justify-center">
         <div className="flex items-center justify-between gap-2 font-bold">
           <span className="group-data-[collapsible=icon]:hidden bg-linear-to-br from-(--primary) to-(--accent) bg-clip-text text-transparent tracking-tight">
             DentalApp
@@ -59,23 +77,33 @@ export default function AppSidebar() {
           <SidebarGroupLabel>Navegacion</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    size="lg"
-                    className="p-8"
-                    asChild
-                    tooltip={item.title}>
-                    <a href={item.url}>
-                      <item.icon />
-                      <div className="flex flex-col">
-                        <span>{item.title}</span>
-                        <span>{item.subtitle}</span>
-                      </div>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {items.map((item) => {
+                const isActive = location.pathname === item.url;
+                return (
+                  <SidebarMenuItem className="py-2" key={item.title}>
+                    <SidebarMenuButton
+                      size="lg"
+                      className={cn(
+                        "p-8 transition-all duration-300",
+                        "group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:justify-center",
+                        // CLASES CUANDO ESTÁ ACTIVO:
+                        isActive
+                          ? "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
+                          : "hover:bg-accent text-muted-foreground",
+                      )}
+                      asChild
+                      tooltip={item.title}>
+                      <a href={item.url}>
+                        <item.icon size={25} />
+                        <div className="flex flex-col group-data-[collapsible=icon]:hidden">
+                          <span>{item.title}</span>
+                          <span>{item.subtitle}</span>
+                        </div>
+                      </a>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -85,9 +113,12 @@ export default function AppSidebar() {
           <SidebarMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <SidebarMenuButton>
-                  <UserCircle /> <span>Dr. Bisonte</span>
-                  <ChevronUp className="ml-auto" />
+                <SidebarMenuButton className="px-4 py-6 group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:justify-center">
+                  <UserCircle />
+                  <span className="group-data-[collapsible=icon]:hidden">
+                    Dr. Bisonte
+                  </span>
+                  <ChevronUp className="ml-auto group-data-[collapsible=icon]:hidden" />
                 </SidebarMenuButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent
