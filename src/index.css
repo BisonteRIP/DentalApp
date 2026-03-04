@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
@@ -33,6 +34,8 @@
   --color-tooth: var(--tooth-base);
   --color-tooth-hover: var(--primary-light);
   --color-tooth-selected: var(--primary);
+
+  --font-lexend: "Lexend", sans-serif;
 }
 
 @layer base {
@@ -52,6 +55,11 @@
     --border: #e5e7eb;
     --shadow: rgba(139, 92, 246, 0.1);
     --tooth-base: #f3f4f6;
+  }
+
+  body {
+    font-family: var(--font-lexend);
+    @apply antialiased;
   }
   .dark {
     --primary: #a78bfa;

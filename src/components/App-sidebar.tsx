@@ -7,7 +7,6 @@ import {
   Settings,
   UserCircle,
   ChevronUp,
-  PanelLeft,
 } from "lucide-react";
 import {
   Sidebar,
@@ -67,14 +66,13 @@ export default function AppSidebar() {
           <span className="group-data-[collapsible=icon]:hidden bg-linear-to-br from-(--primary) to-(--accent) bg-clip-text text-transparent tracking-tight">
             DentalApp
           </span>
-          <SidebarTrigger>
-            <PanelLeft />
+          <SidebarTrigger className="border border-border bg-background">
           </SidebarTrigger>
         </div>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Navegacion</SidebarGroupLabel>
+          <SidebarGroupLabel>NAVEGACION</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => {
@@ -84,20 +82,42 @@ export default function AppSidebar() {
                     <SidebarMenuButton
                       size="lg"
                       className={cn(
-                        "p-8 transition-all duration-300",
+                        "py-8 px-2 transition-all duration-300",
                         "group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:justify-center",
                         // CLASES CUANDO ESTÁ ACTIVO:
                         isActive
-                          ? "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground"
-                          : "hover:bg-accent text-muted-foreground",
+                          ? "bg-primary text-background hover:bg-primary/90 hover:text-background"
+                          : "hover:bg-background text-muted-foreground",
                       )}
                       asChild
                       tooltip={item.title}>
                       <a href={item.url}>
-                        <item.icon size={25} />
-                        <div className="flex flex-col group-data-[collapsible=icon]:hidden">
-                          <span>{item.title}</span>
-                          <span>{item.subtitle}</span>
+                        <div
+                          className={cn(
+                            "flex items-center justify-center p-2 rounded-md",
+                            isActive ? "bg-white/20" : "bg-background",
+                          )}>
+                          <item.icon
+                            size={25}
+                            className={cn(
+                              "",
+                              isActive ? "text-white/80" : "text-foreground",
+                            )}
+                          />
+                        </div>
+                        <div className="flex flex-col gap-1 group-data-[collapsible=icon]:hidden">
+                          <span className="font-semibold leading-none mb-1">
+                            {item.title}
+                          </span>
+                          <span
+                            className={cn(
+                              "text-xs font-normal",
+                              isActive
+                                ? "text-white/80"
+                                : "text-muted-foreground",
+                            )}>
+                            {item.subtitle}
+                          </span>
                         </div>
                       </a>
                     </SidebarMenuButton>
